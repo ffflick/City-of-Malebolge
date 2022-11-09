@@ -127,8 +127,14 @@ news = Quiz_Question(
 "A: With my mouth?", [-2, 1, 1, -2],
 "B: Facebook and cable, mostly.", [2, -3, 2, 2],
 "C: Go through various unsexy, reputable sources and form a well-thought out opinion, like the productive member of society I am.", [2, 2, 0, 3])
+journey = Quiz_Question(
+"\n\nWhat was the purpose of your insignificant journey?",
+"A: The journey itself, of course.", [2, 1, 0, -1],
+"B: Finding Heaven. Could this be it?", [-2, 2, -1, 1],
+"C: Helping others with their own quests.", [3, -3, -3, 0])
+
 #complete list of questions
-questions = [ayn, buddha, jesus, trolley_problem, game, news]
+questions = [ayn, buddha, jesus, trolley_problem, game, news, journey]
 
 #set up the number of questions for this run
 #ask for input
@@ -195,5 +201,76 @@ class Character:
 dearly_beloved = Character(consequentialism_deontology, collectivism_individualism, faith_in_humanity_antinatalism, bliss_knowledge)
 print(dearly_beloved.__str__())
 
+#district class, one for each sin. These determine the descriptors in the locations and encounters
+class District:
+    def __init__(self, loc_descriptors, char_descriptors, obj_descriptors, objects):
+        self.location_descriptors = loc_descriptors
+        self.character_descriptors = char_descriptors
+        self.object_descriptors = obj_descriptors
+        self.randomstuff = objects
+#bodies of the seven districts
+lust = District(
+["perfumed", "luxurious", "intricately ornate", "covered in pillows", "golden"],
+["sensual", "voluptious", "devious", "hungry-eyed", "horny", "soft", "beautiful", "elegant", "nude"],
+["spiked", "gilded", "cushioned", "lubricatred", "studded", "ribbed", "leathery"],
+["dildos", "chocolate truffles", "cherries", "grapes", "melons", "erotic statuettes"])
+gluttony = District(
+["pungent", "red", "rotting", "odorous", "excessive", "deliciously fragrant"], 
+["coupulent", "obese", "starving", "greasy"],
+["edible", "half-eaten", "spiced", "greasy",],
+["multilayered cakes", "pots and pans", "rats on a skewer"])
+greed = District(
+["golden", "bejewled", "excessive", "intricately engraved", "glistening"],
+["elegant", "silk-clad", "gold and jewel-covered"],
+["golden", "emerald", "ruby", "shiny"],
+["jewels", "gold coins", "empty sacks", "ancient relics", "forbidden books"])
+sloth = District(
+["messy", "pillowed", "deserted", "dusty", "ruined"],
+["disheveled", "depressed", "asleep", "sickly", "slow-witted"],
+["rotting", "falling apart", "dusty", "useless"],
+["bedrolls", "pillows", "mushrooms"])
+wrath = District(
+["clamorous", "bloody", "blackiron", "bustling", "scorching"],
+["enraged", "bloodshot-eyed", "berserk", "oddly calm", "foaming at the mouth"],
+["spiked", "bloodied", "sharp-edged", "dangerous"],
+["zweihanders", "spears", "warhorses", "chariots", "mercenary golems"])
+envy = District(
+["dull", "tacky", "baroque"],
+["hungry-eyed", "spiteful", "rag-clad", "miserly"],
+["stolen", "chained", "locked"],
+[])
+pride = District(
+["towering", "gothic", "spired", "many-storied", "gilded", "obsidian"],
+["regal", "elegant", "arrogant", "black-clad"],
+["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
+["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"])
+districts = [lust, gluttony, greed, sloth, wrath, envy, pride]
+#populate random things in envy with stolen stuff from all districts
+envy.randomstuff = []
+for dis in districts:
+    for thing in dis.randomstuff:
+        envy.randomstuff.append(thing)
+#start player in random district
+current_district = random.choice(districts)
 
+#locations and probabilities by district (one is rare, ten is very common)
+class Location:
+    def __init__(self, text, lust, gluttony, greed, sloth, wrath, envy, pride):
+        self.text = text
+        self.lustchance = lust
+        self.gluttonychance = gluttony
+        self.greedchance = greed
+        self.slothchance = sloth
+        self.wrathchance = wrath
+        self.envychance = envy
+        self.pridechance = pride
+    def __str__(self):
+        rep = self.text
+        return rep
 
+market = Location(
+"You stumble into a {} market. The {} stalls sell {} and {} to the {} patrons.".format(random.choice(current_district.location_descriptors), random.choice(current_district.location_descriptors), random.choice(current_district.randomstuff), random.choice(current_district.randomstuff), random.choice(current_district.character_descriptors)),
+3, 6, 9, 2, 2, 9, 1)
+locations = [market]
+current_location = random.choice(locations)
+print(current_location.__str__) #BUG THIS WILL NOT PRINT. 
