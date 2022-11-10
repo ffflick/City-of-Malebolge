@@ -244,14 +244,15 @@ pride = District(
 ["regal", "elegant", "arrogant", "black-clad"],
 ["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
 ["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"])
-districts = [lust, gluttony, greed, sloth, wrath, envy, pride]
+districts_no_envy = [lust, gluttony, greed, sloth, wrath, pride]
 #populate random things in envy with stolen stuff from all districts
 envy.randomstuff = []
-for dis in districts:
+for dis in districts_no_envy:
     for thing in dis.randomstuff:
         envy.randomstuff.append(thing)
+districts = districts_no_envy + [envy]
 #start player in random district
-current_district = random.choice(districts)
+current_district = districts[random.randint(0, len(districts))]
 
 #locations and probabilities by district (one is rare, ten is very common)
 class Location:
@@ -273,4 +274,4 @@ market = Location(
 3, 6, 9, 2, 2, 9, 1)
 locations = [market]
 current_location = random.choice(locations)
-print(current_location.__str__) #BUG THIS WILL NOT PRINT. 
+print(current_location.__str__()) 
