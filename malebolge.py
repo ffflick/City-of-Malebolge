@@ -259,18 +259,18 @@ pride = District(
     ["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
     ["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"])
 
-districts = [lust, gluttony, greed, sloth, wrath, pride] # FORTOMMY: (fixing the bug) add envy only after populating its randomstuff
+districts_no_envy = [lust, gluttony, greed, sloth, wrath, pride]
 # populate random things in envy with stolen stuff from all districts
 envy.randomstuff = []
-for dis in districts:
+for dis in districts_no_envy:
     for thing in dis.randomstuff:
         envy.randomstuff.append(thing)
-districts.append(envy) # FORTOMMY: (fixing the bug) now we add
+districts = districts_no_envy + [envy]
 
 #start player in random district
-current_district = random.choice(districts)
+current_district = districts[random.randint(0, len(districts))]
 
-# locations and probabilities by district (between 0 and 1: 0 is impossible, 1 is certain; 0.5 is 50% chance)
+# FORTOMMY: locations and probabilities by district (between 0 and 1: 0 is impossible, 1 is certain; 0.5 is 50% chance)
 class Location:
     def __init__(self, text, lust, gluttony, greed, sloth, wrath, envy, pride):
         self.text = text
@@ -292,7 +292,7 @@ market = Location(
         random.choice(current_district.randomstuff),
         random.choice(current_district.randomstuff),
         random.choice(current_district.character_descriptors)),
-    0.7, 0.4, 0.1, 0.8, 0.8, 0.1, 0.9) # converted from the original=[3, 6, 9, 2, 2, 9, 1] with new=[1-(k/10) for k in original], divided by 10 to scale between 0 and 1, and inverted (1-x), so high number indicates high chance, more naturally
+    0.7, 0.4, 0.1, 0.8, 0.8, 0.1, 0.9) # FORTOMMY: converted from the original=[3, 6, 9, 2, 2, 9, 1] with new=[1-(k/10) for k in original], divided by 10 to scale between 0 and 1, and inverted (1-x), so high number indicates high chance, more naturally
 locations = [market]
 current_location = random.choice(locations)
-print(current_location) #BUG THIS WILL NOT PRINT.
+print(current_location) # FORTOMMY: no need to call __str__(), printing an object will check if the obj has a __str__() or __repr__() function and use them automatically
