@@ -68,33 +68,44 @@ class Quiz_Question:
 #answer calculator
 def quiz_ask_question(question):
     answers = ["a", "b", "c"]
-    value_1 = 0
-    value_2 = 0
-    value_3 = 0
-    value_4 = 0
+    # FORTOMMY: can delete these initializations, as value_1...4 are always set later
+    # value_1 = 0
+    # value_2 = 0
+    # value_3 = 0
+    # value_4 = 0
     print(question.__str__())
     user_answer = input("Your answer (a, b, or c)? = ")
     user_answer_lower = user_answer.lower()
     while user_answer_lower not in answers:
         user_answer = input("Please answer with a, b, or c = ")
         user_answer_lower = user_answer.lower()
+    # FORTOMMY: this can be simplified, by simply returning the x_values directly! (see below your (now commented-out) code)
+    # if user_answer_lower == "a":
+    #      value_1 = question.a_values[0]
+    #      value_2 = question.a_values[1]
+    #      value_3 = question.a_values[2]
+    #      value_4 = question.a_values[3]
+    # elif user_answer_lower == "b":
+    #     value_1 = question.b_values[0]
+    #     value_2 = question.b_values[1]
+    #     value_3 = question.b_values[2]
+    #     value_4 = question.b_values[3]
+    # else:
+    #     value_1 = question.c_values[0]
+    #     value_2 = question.c_values[1]
+    #     value_3 = question.c_values[2]
+    #     value_4 = question.c_values[3]
+    # values = [value_1, value_2, value_3, value_4]
+    # return values
+
+    # FORTOMMY: Note doing the following returns the same list referred by question.x_values. This means changing the list returned here will change question.x_value as well.
+    # This poses an issue if you plan on using question.x_values later again. In that case you should add `.copy()`, so you'll get a new list with the same values.
     if user_answer_lower == "a":
-         value_1 = question.a_values[0]
-         value_2 = question.a_values[1]
-         value_3 = question.a_values[2]
-         value_4 = question.a_values[3]
+        return question.a_values
     elif user_answer_lower == "b":
-        value_1 = question.b_values[0]
-        value_2 = question.b_values[1]
-        value_3 = question.b_values[2]
-        value_4 = question.b_values[3]
+        return question.b_values
     else:
-        value_1 = question.c_values[0]
-        value_2 = question.c_values[1]
-        value_3 = question.c_values[2]
-        value_4 = question.c_values[3]
-    values = [value_1, value_2, value_3, value_4]
-    return values
+        return question.c_values
 
 #all the questions HERE
 ayn = Quiz_Question(
@@ -195,11 +206,14 @@ class Character:
 
         self.name = random.choice(names)
     def __str__(self):
-        rep = "\n\n\nYour name is " + self.name + ". \nYour value, neatly quantified:\nBody: " + str(self.body) + "\nMind: " + str(self.mind) + "\nSoul: " + str(self.soul) + "\nSkill: " + str(self.skill)
-        return rep
+        # FORTOMMY: I find the f-string representation the best way to format strings in python: very readable and easy to think about
+        # rep = "\n\n\nYour name is " + self.name + ". \nYour value, neatly quantified:\nBody: " + str(self.body) + "\nMind: " + str(self.mind) + "\nSoul: " + str(self.soul) + "\nSkill: " + str(self.skill)
+        # return rep
+        return f"\n\n\nYour name is {self.name}.\nYour value, neatly quantified:\nBody: {str(self.body)}\nMind: {str(self.mind)}\nSoul: {str(self.soul)}\nSkill: {str(self.skill)}"
+
 
 dearly_beloved = Character(consequentialism_deontology, collectivism_individualism, faith_in_humanity_antinatalism, bliss_knowledge)
-print(dearly_beloved.__str__())
+print(dearly_beloved)
 
 #district class, one for each sin. These determine the descriptors in the locations and encounters
 class District:
@@ -210,50 +224,53 @@ class District:
         self.randomstuff = objects
 #bodies of the seven districts
 lust = District(
-["perfumed", "luxurious", "intricately ornate", "covered in pillows", "golden"],
-["sensual", "voluptious", "devious", "hungry-eyed", "horny", "soft", "beautiful", "elegant", "nude"],
-["spiked", "gilded", "cushioned", "lubricatred", "studded", "ribbed", "leathery"],
-["dildos", "chocolate truffles", "cherries", "grapes", "melons", "erotic statuettes"])
+    ["perfumed", "luxurious", "intricately ornate", "covered in pillows", "golden"],
+    ["sensual", "voluptious", "devious", "hungry-eyed", "horny", "soft", "beautiful", "elegant", "nude"],
+    ["spiked", "gilded", "cushioned", "lubricatred", "studded", "ribbed", "leathery"],
+    ["dildos", "chocolate truffles", "cherries", "grapes", "melons", "erotic statuettes"])
 gluttony = District(
-["pungent", "red", "rotting", "odorous", "excessive", "deliciously fragrant"], 
-["coupulent", "obese", "starving", "greasy"],
-["edible", "half-eaten", "spiced", "greasy",],
-["multilayered cakes", "pots and pans", "rats on a skewer"])
+    ["pungent", "red", "rotting", "odorous", "excessive", "deliciously fragrant"],
+    ["coupulent", "obese", "starving", "greasy"],
+    ["edible", "half-eaten", "spiced", "greasy",],
+    ["multilayered cakes", "pots and pans", "rats on a skewer"])
 greed = District(
-["golden", "bejewled", "excessive", "intricately engraved", "glistening"],
-["elegant", "silk-clad", "gold and jewel-covered"],
-["golden", "emerald", "ruby", "shiny"],
-["jewels", "gold coins", "empty sacks", "ancient relics", "forbidden books"])
+    ["golden", "bejewled", "excessive", "intricately engraved", "glistening"],
+    ["elegant", "silk-clad", "gold and jewel-covered"],
+    ["golden", "emerald", "ruby", "shiny"],
+    ["jewels", "gold coins", "empty sacks", "ancient relics", "forbidden books"])
 sloth = District(
-["messy", "pillowed", "deserted", "dusty", "ruined"],
-["disheveled", "depressed", "asleep", "sickly", "slow-witted"],
-["rotting", "falling apart", "dusty", "useless"],
-["bedrolls", "pillows", "mushrooms"])
+    ["messy", "pillowed", "deserted", "dusty", "ruined"],
+    ["disheveled", "depressed", "asleep", "sickly", "slow-witted"],
+    ["rotting", "falling apart", "dusty", "useless"],
+    ["bedrolls", "pillows", "mushrooms"])
 wrath = District(
-["clamorous", "bloody", "blackiron", "bustling", "scorching"],
-["enraged", "bloodshot-eyed", "berserk", "oddly calm", "foaming at the mouth"],
-["spiked", "bloodied", "sharp-edged", "dangerous"],
-["zweihanders", "spears", "warhorses", "chariots", "mercenary golems"])
+    ["clamorous", "bloody", "blackiron", "bustling", "scorching"],
+    ["enraged", "bloodshot-eyed", "berserk", "oddly calm", "foaming at the mouth"],
+    ["spiked", "bloodied", "sharp-edged", "dangerous"],
+    ["zweihanders", "spears", "warhorses", "chariots", "mercenary golems"])
 envy = District(
-["dull", "tacky", "baroque"],
-["hungry-eyed", "spiteful", "rag-clad", "miserly"],
-["stolen", "chained", "locked"],
-[])
+    ["dull", "tacky", "baroque"],
+    ["hungry-eyed", "spiteful", "rag-clad", "miserly"],
+    ["stolen", "chained", "locked"],
+    [])
 pride = District(
-["towering", "gothic", "spired", "many-storied", "gilded", "obsidian"],
-["regal", "elegant", "arrogant", "black-clad"],
-["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
-["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"])
-districts = [lust, gluttony, greed, sloth, wrath, envy, pride]
-#populate random things in envy with stolen stuff from all districts
+    ["towering", "gothic", "spired", "many-storied", "gilded", "obsidian"],
+    ["regal", "elegant", "arrogant", "black-clad"],
+    ["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
+    ["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"])
+
+districts = [lust, gluttony, greed, sloth, wrath, pride] # FORTOMMY: (fixing the bug) add envy only after populating its randomstuff
+# populate random things in envy with stolen stuff from all districts
 envy.randomstuff = []
 for dis in districts:
     for thing in dis.randomstuff:
         envy.randomstuff.append(thing)
+districts.append(envy) # FORTOMMY: (fixing the bug) now we add
+
 #start player in random district
 current_district = random.choice(districts)
 
-#locations and probabilities by district (one is rare, ten is very common)
+# locations and probabilities by district (between 0 and 1: 0 is impossible, 1 is certain; 0.5 is 50% chance)
 class Location:
     def __init__(self, text, lust, gluttony, greed, sloth, wrath, envy, pride):
         self.text = text
@@ -269,8 +286,13 @@ class Location:
         return rep
 
 market = Location(
-"You stumble into a {} market. The {} stalls sell {} and {} to the {} patrons.".format(random.choice(current_district.location_descriptors), random.choice(current_district.location_descriptors), random.choice(current_district.randomstuff), random.choice(current_district.randomstuff), random.choice(current_district.character_descriptors)),
-3, 6, 9, 2, 2, 9, 1)
+    "You stumble into a {} market. The {} stalls sell {} and {} to the {} patrons.".format(
+        random.choice(current_district.location_descriptors),
+        random.choice(current_district.location_descriptors),
+        random.choice(current_district.randomstuff),
+        random.choice(current_district.randomstuff),
+        random.choice(current_district.character_descriptors)),
+    0.7, 0.4, 0.1, 0.8, 0.8, 0.1, 0.9) # converted from the original=[3, 6, 9, 2, 2, 9, 1] with new=[1-(k/10) for k in original], divided by 10 to scale between 0 and 1, and inverted (1-x), so high number indicates high chance, more naturally
 locations = [market]
 current_location = random.choice(locations)
-print(current_location.__str__) #BUG THIS WILL NOT PRINT. 
+print(current_location) #BUG THIS WILL NOT PRINT.
