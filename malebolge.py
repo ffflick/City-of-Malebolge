@@ -321,9 +321,40 @@ market = Location(
         random.choice(current_district.randomstuff),
         random.choice(current_district.randomstuff),
         random.choice(current_district.character_descriptors)),
-    0.3, 0.6, 0.9, 0.2, 0.2, 0.9, 0.1)
+    3, 6, 9, 2, 2, 9, 1) #reverted to non-decimal probability for clearer use in the random table
 
+#random location table by district
+#first list contains all locations
+#other 7 lists are probabilistic, by district
 locations = [market]
+lust_locations = []
+gluttony_locations =[]
+greed_locations = []
+sloth_locations = []
+wrath_locations = []
+envy_locations = []
+pride_locations = []
+#append each location to a district a number of times equal to its probability integer
+for location in locations:
+    for instance in range(location.lustchance):
+        lust_locations.append(location)
+    for instance in range(location.gluttonychance):
+        gluttony_locations.append(location)
+    for instance in range(location.greedchance):
+        greed_locations.append(location)
+    for instance in range(location.slothchance):
+        sloth_locations.append(location)
+    for instance in range(location.wrathchance):
+        wrath_locations.append(location)
+    for instance in range(location.envychance):
+        envy_locations.append(location)
+    for instance in range(location.pridechance):
+        pride_locations.append(location)
+
+#DEBUGGING
+for loc in lust_locations:
+    print(loc)
+
 current_location = random.choice(locations)
 print(current_location) 
 
