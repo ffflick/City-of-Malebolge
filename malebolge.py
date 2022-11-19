@@ -9,7 +9,7 @@ print("current version: v0.1")
 start_or_quit = input("\ntype start = ")
 start_or_quit = start_or_quit.lower()
 start_or_quit_checker = 0
-insistor = ["I am running out of patience", "please just type start or leave me alone", "this is not difficult, are you fucking with me?"]
+insistor = ["I am running out of patience", "please just  loc_type start or leave me alone", "this is not difficult, are you fucking with me?"]
 while start_or_quit_checker != 1:
     if start_or_quit == "start":
         print("\n\nvery well... let us begin\n\n")
@@ -17,7 +17,7 @@ while start_or_quit_checker != 1:
         continue
     while start_or_quit != "start":
         print(random.choice(insistor))
-        start_or_quit = input("please type what I asked you to.\nTYPE START = ")
+        start_or_quit = input("please  loc_type what I asked you to.\nTYPE START = ")
         if start_or_quit == "start":
             start_or_quit_checker += 1
 
@@ -36,7 +36,7 @@ print("\n\nThe city of Malebolge looms before you.")
 print(random.choice(city_descr))
 print(random.choice(walking_descr))
 print("God... How did you get here?")
-prompts = ["Tell me, how??\nHOW?!?!?!?!\n\n\nHOOOOOOOOOW?! \n(type answer) = ", "\n\n\nAND TELL ME, WHAT DO YOU EXPECT TO FIND IN THAT ACCURSED CITY?! \n(type answer) = "]
+prompts = ["Tell me, how??\nHOW?!?!?!?!\n\n\nHOOOOOOOOOW?! \n( loc_type answer) = ", "\n\n\nAND TELL ME, WHAT DO YOU EXPECT TO FIND IN THAT ACCURSED CITY?! \n( loc_type answer) = "]
 choice = input(random.choice(prompts))
 title = choice
 print("\n\nI see... Perhaps a more important question would be...")
@@ -246,47 +246,56 @@ print("Now, with nowhere else to go, you enter the city.")
 
 #district class, one for each sin. These determine the descriptors in the locations and encounters
 class District:
-    def __init__(self, loc_descriptors, char_descriptors, obj_descriptors, objects):
+    def __init__(self, name, loc_descriptors, char_descriptors, obj_descriptors, objects, location_table):
+        self.name = name
         self.location_descriptors = loc_descriptors
         self.character_descriptors = char_descriptors
         self.object_descriptors = obj_descriptors
         self.randomstuff = objects
+        self.locations = location_table
 #bodies of the seven districts
-lust = District(
+lust = District("lust",
     ["perfumed", "luxurious", "intricately ornate", "covered in pillows", "golden"],
     ["sensual", "voluptious", "devious", "hungry-eyed", "horny", "soft", "beautiful", "elegant", "nude"],
     ["spiked", "gilded", "cushioned", "lubricatred", "studded", "ribbed", "leathery"],
-    ["dildos", "chocolate truffles", "cherries", "grapes", "melons", "erotic statuettes"])
-gluttony = District(
+    ["dildos", "chocolate truffles", "cherries", "grapes", "melons", "erotic statuettes"],
+    {"market": 3})
+gluttony = District("gluttony",
     ["pungent", "red", "rotting", "odorous", "excessive", "deliciously fragrant"],
     ["coupulent", "obese", "starving", "greasy"],
     ["edible", "half-eaten", "spiced", "greasy",],
-    ["multilayered cakes", "pots and pans", "rats on a skewer"])
-greed = District(
+    ["multilayered cakes", "pots and pans", "rats on a skewer"],
+    {"market": 6})
+greed = District("greed",
     ["golden", "bejewled", "excessive", "intricately engraved", "glistening"],
     ["elegant", "silk-clad", "gold and jewel-covered"],
     ["golden", "emerald", "ruby", "shiny"],
-    ["jewels", "gold coins", "empty sacks", "ancient relics", "forbidden books"])
-sloth = District(
+    ["jewels", "gold coins", "empty sacks", "ancient relics", "forbidden books"],
+    {"market": 9})
+sloth = District("sloth",
     ["messy", "pillowed", "deserted", "dusty", "ruined"],
     ["disheveled", "depressed", "asleep", "sickly", "slow-witted"],
     ["rotting", "falling apart", "dusty", "useless"],
-    ["bedrolls", "pillows", "mushrooms"])
-wrath = District(
+    ["bedrolls", "pillows", "mushrooms"],
+    {"market": 2})
+wrath = District("wrath",
     ["clamorous", "bloody", "blackiron", "bustling", "scorching"],
     ["enraged", "bloodshot-eyed", "berserk", "oddly calm", "foaming at the mouth"],
     ["spiked", "bloodied", "sharp-edged", "dangerous"],
-    ["zweihanders", "spears", "warhorses", "chariots", "mercenary golems"])
-envy = District(
+    ["zweihanders", "spears", "warhorses", "chariots", "mercenary golems"],
+    {"market": 2})
+envy = District("envy",
     ["dull", "tacky", "baroque"],
     ["hungry-eyed", "spiteful", "rag-clad", "miserly"],
     ["stolen", "chained", "locked"],
-    [])
-pride = District(
+    [],
+    {"market": 9})
+pride = District("pride",
     ["towering", "gothic", "spired", "many-storied", "gilded", "obsidian"],
     ["regal", "elegant", "arrogant", "black-clad"],
     ["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
-    ["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"])
+    ["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"],
+    {"market": 1})
 
 districts_no_envy = [lust, gluttony, greed, sloth, wrath, pride]
 # populate random things in envy with stolen stuff from all districts
@@ -301,60 +310,27 @@ current_district = districts[random.randint(0, 6)]
 
 # FORTOMMY: locations and probabilities by district (between 0 and 1: 0 is impossible, 1 is certain; 0.5 is 50% chance)
 class Location:
-    def __init__(self, text, lust, gluttony, greed, sloth, wrath, envy, pride):
+    def __init__(self, text):
         self.text = text
-        self.lustchance = lust
-        self.gluttonychance = gluttony
-        self.greedchance = greed
-        self.slothchance = sloth
-        self.wrathchance = wrath
-        self.envychance = envy
-        self.pridechance = pride
     def __str__(self):
         rep = self.text
         return rep
 
-market = Location(
-    "You stumble into a {} market. The {} stalls sell {} and {} to the {} patrons.".format(
-        random.choice(current_district.location_descriptors),
-        random.choice(current_district.location_descriptors),
-        random.choice(current_district.randomstuff),
-        random.choice(current_district.randomstuff),
-        random.choice(current_district.character_descriptors)),
-    3, 6, 9, 2, 2, 9, 1) #reverted to non-decimal probability for clearer use in the random table
 
-#random location table by district
-#first list contains all locations
-#other 7 lists are probabilistic, by district
-locations = [market]
-lust_locations = []
-gluttony_locations =[]
-greed_locations = []
-sloth_locations = []
-wrath_locations = []
-envy_locations = []
-pride_locations = []
-#append each location to a district a number of times equal to its probability integer
-for location in locations:
-    for instance in range(location.lustchance):
-        lust_locations.append(location)
-    for instance in range(location.gluttonychance):
-        gluttony_locations.append(location)
-    for instance in range(location.greedchance):
-        greed_locations.append(location)
-    for instance in range(location.slothchance):
-        sloth_locations.append(location)
-    for instance in range(location.wrathchance):
-        wrath_locations.append(location)
-    for instance in range(location.envychance):
-        envy_locations.append(location)
-    for instance in range(location.pridechance):
-        pride_locations.append(location)
+market_probabilities = {district.name:district.locations["market"] for district in districts}
+def location_maker(current_district, loc_type):
+    if  loc_type == "market":
+        return Location(
+            "You stumble into a {} market. The {} stalls sell {} and {} to the {} patrons.".format(
+            random.choice(current_district.location_descriptors),
+            random.choice(current_district.location_descriptors),
+            random.choice(current_district.randomstuff),
+            random.choice(current_district.randomstuff),
+            random.choice(current_district.character_descriptors)))
 
-#DEBUGGING
-for loc in lust_locations:
-    print(loc)
-
-current_location = random.choice(locations)
-print(current_location) 
-
+while True: 
+    current_location = location_maker(
+        current_district,
+         loc_type = random.choices(list(current_district.locations.keys()), list(current_district.locations.values()), k = 1)[0])
+    print(current_location) 
+    next = input("bleh")
