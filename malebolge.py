@@ -68,38 +68,12 @@ class Quiz_Question:
 #answer calculator
 def quiz_ask_question(question):
     answers = ["a", "b", "c"]
-    # FORTOMMY: can delete these initializations, as value_1...4 are always set later
-    # value_1 = 0
-    # value_2 = 0
-    # value_3 = 0
-    # value_4 = 0
     print(question.__str__())
     user_answer = input("Your answer (a, b, or c)? = ")
     user_answer_lower = user_answer.lower()
     while user_answer_lower not in answers:
         user_answer = input("Please answer with a, b, or c = ")
         user_answer_lower = user_answer.lower()
-    # FORTOMMY: this can be simplified, by simply returning the x_values directly! (see below your (now commented-out) code)
-    # if user_answer_lower == "a":
-    #      value_1 = question.a_values[0]
-    #      value_2 = question.a_values[1]
-    #      value_3 = question.a_values[2]
-    #      value_4 = question.a_values[3]
-    # elif user_answer_lower == "b":
-    #     value_1 = question.b_values[0]
-    #     value_2 = question.b_values[1]
-    #     value_3 = question.b_values[2]
-    #     value_4 = question.b_values[3]
-    # else:
-    #     value_1 = question.c_values[0]
-    #     value_2 = question.c_values[1]
-    #     value_3 = question.c_values[2]
-    #     value_4 = question.c_values[3]
-    # values = [value_1, value_2, value_3, value_4]
-    # return values
-
-    # FORTOMMY: Note doing the following returns the same list referred by question.x_values. This means changing the list returned here will change question.x_value as well.
-    # This poses an issue if you plan on using question.x_values later again. In that case you should add `.copy()`, so you'll get a new list with the same values.
     if user_answer_lower == "a":
         return question.a_values
     elif user_answer_lower == "b":
@@ -188,32 +162,87 @@ for i in range(game_setting_question_number):
 
 #player character
 #stats, name, and appearance are based on results of the quiz
-names = ["bob"]
+
+def player_archetype(c_d, c_i, f_a, b_k):
+    archetype = []
+    if c_d > 0:
+        archetype.append("d")
+    elif c_d < 0: 
+        archetype.append("c")
+    else:
+        archetype.append("n")
+    
+    if c_i > 0:
+        archetype.append("i")
+    elif c_i < 0: 
+        archetype.append("c")
+    else:
+        archetype.append("n")
+    
+    if f_a > 0:
+        archetype.append("a")
+    elif f_a < 0: 
+        archetype.append("f")
+    else:
+        archetype.append("n")
+
+    if b_k > 0:
+        archetype.append("k")
+    elif b_k < 0: 
+        archetype.append("b")
+    else:
+        archetype.append("n")
+
+    return archetype
+
+pc_soul_type = player_archetype(consequentialism_deontology, collectivism_individualism, faith_in_humanity_antinatalism, bliss_knowledge)
+
+#descriptor random tables: head determined by b_k, body by c_i, style by c_d, name by f_a
+#first sublist is for negative result in corresponding stat
+#second sublist is for neutral results
+#third is for positive results
+character_head_descriptors = [['that of a stubborn donkey, rude and intimidating', "covered in moss, beautifully flourishing, with roses and tulips for hair", "blue like the sky, your hair like clouds, your eyes like stars"],["just as it was in life, in the prime of your youth", "featureless, like an incomplete sculpture", "made of melting wax"],['owl-like, with great piercing eyes', "feline, with an ever-troubling glint of curiosity", "concealed by a mask of stained glass", "nothing but a thick gangle of eyes"]]
+character_body_descriptors = [["always warm, alawys welcoming", "sturdy, and covered in thick white fur", "blocky and angular, like an old game cube sprite"],["just as it was in life, in the prime of your youth", "translucent, with three pulsing hearts visible through your bare chest", "thin as a scarecrow, and tall as a lightpost"],["lean and muscled, with the bottom half of a great python", "like a centaur's, your skin itches for freedom", "made of tin, sturdy and hollow", "robotic, powered by battery and arcane forces"]]
+character_style_descriptor = [["Great goat-like horns adorn your head, and a pointed tail sprouts from your behind", "You have great bat-like wings", "Wherever you pass, nature whithers slightly"],["Aside from that, you are completely ordinary", "To all who see you, you appear blurry and difficult to discern", "Thick fog pours from your orifices"],["Great angel wings adorn your back", "A halo of rainbow light floats above your head", "Wherever you go, tiny flowers of all colors bloom in your wake"]]
+names = [["Sprite", "Mikhaal", "Golda", "Childe of Man"],["Bob", "Richard", "REDACTED", "Dullard"],["K'Rririk", "FHWEIHQOWJFDQUWBFUIQWBFUMQWOFJIFG", "Brown Jenkin", "Keziah", "unpronouceable to all but yourself"]]
+#the following function basically picks a table and rolls the dice for each
+def character_aesthetics(attribute, table):
+    result = ""
+    if attribute > 0:
+        result = random.choice(table[2])
+    elif attribute < 0:
+        result = random.choice(table[0])
+    else:
+        result = random.choice(table[1])
+    return result
 
 
 class Character:
     def __init__(self, c_d, c_i, f_a, b_k):
+        #correlates attributes to stats
         skill_mind = c_d
         body_skill = c_i
         soul_body = f_a
         soul_mind = b_k
-
+        #builds the player's character sheet
         self.body = -body_skill + soul_body + random.randint(-3, 3)
         self.mind = soul_mind + skill_mind + random.randint(-3, 3)
         self.soul = -soul_mind - soul_body + random.randint(-3, 3)
         self.skill =  -skill_mind + body_skill + random.randint(-3, 3)
-
-
-        self.name = random.choice(names)
+        #rolls on the random tables to determin character aesthetics
+        self.name = character_aesthetics(faith_in_humanity_antinatalism, names)
+        self.body_descr = character_aesthetics(collectivism_individualism, character_body_descriptors)
+        self.head_descr = character_aesthetics(bliss_knowledge, character_head_descriptors)
+        self.style_descr = character_aesthetics(consequentialism_deontology, character_style_descriptor)
     def __str__(self):
-        # FORTOMMY: I find the f-string representation the best way to format strings in python: very readable and easy to think about
-        # rep = "\n\n\nYour name is " + self.name + ". \nYour value, neatly quantified:\nBody: " + str(self.body) + "\nMind: " + str(self.mind) + "\nSoul: " + str(self.soul) + "\nSkill: " + str(self.skill)
-        # return rep
-        return f"\n\n\nYour name is {self.name}.\nYour value, neatly quantified:\nBody: {str(self.body)}\nMind: {str(self.mind)}\nSoul: {str(self.soul)}\nSkill: {str(self.skill)}"
+        rep = "\n\n\nYour name is " + self.name + ".\nYour head is " + self.head_descr + "\nYour body is " + self.body_descr + "\n" + self.style_descr + "\n\n\nYour value, neatly quantified:\nBody: " + str(self.body) + "\nMind: " + str(self.mind) + "\nSoul: " + str(self.soul) + "\nSkill: " + str(self.skill)
+        return rep
 
 
 dearly_beloved = Character(consequentialism_deontology, collectivism_individualism, faith_in_humanity_antinatalism, bliss_knowledge)
 print(dearly_beloved)
+print("Now, with nowhere else to go, you enter the city.")
+
 
 #district class, one for each sin. These determine the descriptors in the locations and encounters
 class District:
@@ -268,7 +297,7 @@ for dis in districts_no_envy:
 districts = districts_no_envy + [envy]
 
 #start player in random district
-current_district = districts[random.randint(0, len(districts))]
+current_district = districts[random.randint(0, 6)]
 
 # FORTOMMY: locations and probabilities by district (between 0 and 1: 0 is impossible, 1 is certain; 0.5 is 50% chance)
 class Location:
@@ -292,7 +321,9 @@ market = Location(
         random.choice(current_district.randomstuff),
         random.choice(current_district.randomstuff),
         random.choice(current_district.character_descriptors)),
-    0.7, 0.4, 0.1, 0.8, 0.8, 0.1, 0.9) # FORTOMMY: converted from the original=[3, 6, 9, 2, 2, 9, 1] with new=[1-(k/10) for k in original], divided by 10 to scale between 0 and 1, and inverted (1-x), so high number indicates high chance, more naturally
+    0.3, 0.6, 0.9, 0.2, 0.2, 0.9, 0.1)
+
 locations = [market]
 current_location = random.choice(locations)
-print(current_location) # FORTOMMY: no need to call __str__(), printing an object will check if the obj has a __str__() or __repr__() function and use them automatically
+print(current_location) 
+
