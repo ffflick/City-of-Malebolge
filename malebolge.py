@@ -9,7 +9,7 @@ print("current version: v0.1")
 start_or_quit = input("\ntype start = ")
 start_or_quit = start_or_quit.lower()
 start_or_quit_checker = 0
-insistor = ["I am running out of patience", "please just  loc_type start or leave me alone", "this is not difficult, are you fucking with me?"]
+insistor = ["I am running out of patience", "please just type start or leave me alone", "this is not difficult, are you fucking with me?"]
 while start_or_quit_checker != 1:
     if start_or_quit == "start":
         print("\n\nvery well... let us begin\n\n")
@@ -17,7 +17,7 @@ while start_or_quit_checker != 1:
         continue
     while start_or_quit != "start":
         print(random.choice(insistor))
-        start_or_quit = input("please  loc_type what I asked you to.\nTYPE START = ")
+        start_or_quit = input("please type what I asked you to.\nTYPE START = ")
         if start_or_quit == "start":
             start_or_quit_checker += 1
 
@@ -36,7 +36,7 @@ print("\n\nThe city of Malebolge looms before you.")
 print(random.choice(city_descr))
 print(random.choice(walking_descr))
 print("God... How did you get here?")
-prompts = ["Tell me, how??\nHOW?!?!?!?!\n\n\nHOOOOOOOOOW?! \n( loc_type answer) = ", "\n\n\nAND TELL ME, WHAT DO YOU EXPECT TO FIND IN THAT ACCURSED CITY?! \n( loc_type answer) = "]
+prompts = ["Tell me, how??\nHOW?!?!?!?!\n\n\nHOOOOOOOOOW?! \n(type answer) = ", "\n\n\nAND TELL ME, WHAT DO YOU EXPECT TO FIND IN THAT ACCURSED CITY?! \n(type answer) = "]
 choice = input(random.choice(prompts))
 title = choice
 print("\n\nI see... Perhaps a more important question would be...")
