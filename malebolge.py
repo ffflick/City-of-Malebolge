@@ -201,10 +201,10 @@ pc_soul_type = player_archetype(consequentialism_deontology, collectivism_indivi
 #first sublist is for negative result in corresponding stat
 #second sublist is for neutral results
 #third is for positive results
-character_head_descriptors = [['that of a stubborn donkey, rude and intimidating', "covered in moss, beautifully flourishing, with roses and tulips for hair", "blue like the sky, your hair like clouds, your eyes like stars"],["just as it was in life, in the prime of your youth", "featureless, like an incomplete sculpture", "made of melting wax"],['owl-like, with great piercing eyes', "feline, with an ever-troubling glint of curiosity", "concealed by a mask of stained glass", "nothing but a thick gangle of eyes"]]
-character_body_descriptors = [["always warm, alawys welcoming", "sturdy, and covered in thick white fur", "blocky and angular, like an old game cube sprite"],["just as it was in life, in the prime of your youth", "translucent, with three pulsing hearts visible through your bare chest", "thin as a scarecrow, and tall as a lightpost"],["lean and muscled, with the bottom half of a great python", "like a centaur's, your skin itches for freedom", "made of tin, sturdy and hollow", "robotic, powered by battery and arcane forces"]]
-character_style_descriptor = [["Great goat-like horns adorn your head, and a pointed tail sprouts from your behind", "You have great bat-like wings", "Wherever you pass, nature whithers slightly"],["Aside from that, you are completely ordinary", "To all who see you, you appear blurry and difficult to discern", "Thick fog pours from your orifices"],["Great angel wings adorn your back", "A halo of rainbow light floats above your head", "Wherever you go, tiny flowers of all colors bloom in your wake"]]
-names = [["Sprite", "Mikhaal", "Golda", "Childe of Man"],["Bob", "Richard", "REDACTED", "Dullard"],["K'Rririk", "FHWEIHQOWJFDQUWBFUIQWBFUMQWOFJIFG", "Brown Jenkin", "Keziah", "unpronouceable to all but yourself"]]
+character_head_descriptors = [['that of a stubborn donkey, rude and intimidating', "covered in moss, beautifully flourishing, with roses and tulips for hair", "blue like the sky, your hair like clouds, your eyes like stars", "beautiful and unearthly, with eyes glazed over, eternally detached", "flat like a canvas, with a depiction of your favorite painting", "you have a sunny face, rays and all", "you have a smile full of white pearls", "you have bountiful red cheeks"],["just as it was in life, in the prime of your youth", "featureless, like an incomplete sculpture", "made of melting wax", "a television"],["bearded like a dread raven", "an hourglass. Its sand streams upwards",'owl-like, with great piercing eyes', "feline, with an ever-troubling glint of curiosity", "concealed by a mask of stained glass", "nothing but a thick gangle of eyes", "upside down, with the scalp mounted on your neck", "old and pruny, with a long beard that trails behind you, catching filth", "sleek. Your tongue slides in and out your mouth, seeking a scent"]]
+character_body_descriptors = [["always warm, alawys welcoming", "sturdy, and covered in thick white fur", "blocky and angular, like an old game cube sprite", "is large, with a great belly wide and smooth", "colorful and fuzzy. You have the great long arms of a friendly orangutan", "mostly unassuming, save for a pouch on your belly, warm and fuzzy, large enough to carry anyone"],["just as it was in life, in the prime of your youth", "translucent, with three pulsing hearts visible through your bare chest", "thin as a scarecrow, and tall as a lightpost", "a reflection of your surroundings, nothing original", "your body just slides on the floor don't you care?", "you have a human torso, human face, human legs"],["lean and muscled, with the bottom half of a great python", "like a centaur's, your skin itches for freedom", "made of tin, sturdy and hollow", "robotic, powered by battery and arcane forces", "is cut from sharp shards of glass", "unseen and ghostly, covered by unassuming drapes and showing no skin. Do you even have a body?", "thin and sways in the wind, transparent and much like a jellyfish"]]
+character_style_descriptor = [["Great goat-like horns adorn your head, and a pointed tail sprouts from your behind", "at least one of your eyes gives off a rotten, dirty interior", "Your form is covered by a horrid cape of feral hides", "you reek of something, I wonder if it is infectuous", "Pulsating pustules procreate in your pores", "An ever-present screech, high-pitched and horrid, can be heard coming from your larynx", "You have great bat-like wings", "Wherever you pass, nature whithers slightly"],["Aside from that, you are completely ordinary", "To all who see you, you appear blurry and difficult to discern", "Thick fog pours from your orifices", "You are dressed in white. Wait, no. Gray.", "You look like someone. Not sure who. Not you.", "You cannot be focused on. You cannot be remembered in detail. Are you even there?"],["Great angel wings adorn your back", "A halo of rainbow light floats above your head", "Wherever you go, tiny flowers of all colors bloom in your wake", "A warm glow dances on your skin", "Your voice has a cheerful glow to it", "Your surface-level emotions take life as color, dancing forth from your body and everywhere you go", "Your presence is reassuring, calming to all senses"]]
+names = [["Sprite", "Mikhaal", "Golda", "Do", "Childe of Man", "Taefania", "Angela", "Barbara", "Senex", "Akira", "Theodora", "Samu El", "Salmon", "Sumidors"],["Bob", "Al El Mac Van", "Osman", "Jimbo", "Richard", "REDACTED", "Dullard", "Abel", "Modest", "Hork", "Merry", "Cryptid", "Rangetko"],["K'Rririk", "Caine", "FHWEIHQOWJFDQUWBFUIQWBFUMQWOFJIFG", "Brown Jenkin", "Keziah", "unpronouceable to all but yourself", "Qlipphoth", "Crowley", "Ender", "Zan", "Gorka", "Comici", "Carrowmore", "Pipe", "Martel"]]
 #the following function basically picks a table and rolls the dice for each
 def character_aesthetics(attribute, table):
     result = ""
@@ -256,46 +256,46 @@ class District:
 #bodies of the seven districts
 lust = District("lust",
     ["perfumed", "luxurious", "intricately ornate", "covered in pillows", "golden"],
-    ["sensual", "voluptious", "devious", "hungry-eyed", "horny", "soft", "beautiful", "elegant", "nude"],
-    ["spiked", "gilded", "cushioned", "lubricatred", "studded", "ribbed", "leathery"],
-    ["dildos", "chocolate truffles", "cherries", "grapes", "melons", "erotic statuettes"],
-    {"market": 3})
+    ["sensual", "voluptious", "devious", "hungry-eyed", "horny", "soft", "beautiful", "elegant", "nude", "visibly aroused"],
+    ["spiked", "gilded", "cushioned", "lubricatred", "studded", "ribbed", "leathery", "scented"],
+    ["dildos", "chocolate truffles", "sex slaves", "cherries", "grapes", "lubricant", "melons", "erotic statuettes", "anime body pillows"],
+    {"market": 3, "brothel": 9})
 gluttony = District("gluttony",
     ["pungent", "red", "rotting", "odorous", "excessive", "deliciously fragrant"],
-    ["coupulent", "obese", "starving", "greasy"],
-    ["edible", "half-eaten", "spiced", "greasy",],
-    ["multilayered cakes", "pots and pans", "rats on a skewer"],
-    {"market": 6})
+    ["coupulent", "obese", "starving", "greasy", "hungry", "skeletal"],
+    ["edible", "half-eaten", "spiced", "greasy"],
+    ["multilayered cakes", "pots and pans", "rats on a skewer", "spices", "oils"],
+    {"market": 6, "brothel": 5})
 greed = District("greed",
     ["golden", "bejewled", "excessive", "intricately engraved", "glistening"],
     ["elegant", "silk-clad", "gold and jewel-covered"],
     ["golden", "emerald", "ruby", "shiny"],
     ["jewels", "gold coins", "empty sacks", "ancient relics", "forbidden books"],
-    {"market": 9})
+    {"market": 9, "brothel": 7})
 sloth = District("sloth",
     ["messy", "pillowed", "deserted", "dusty", "ruined"],
     ["disheveled", "depressed", "asleep", "sickly", "slow-witted"],
     ["rotting", "falling apart", "dusty", "useless"],
     ["bedrolls", "pillows", "mushrooms"],
-    {"market": 2})
+    {"market": 2, "brothel": 3})
 wrath = District("wrath",
-    ["clamorous", "bloody", "blackiron", "bustling", "scorching"],
-    ["enraged", "bloodshot-eyed", "berserk", "oddly calm", "foaming at the mouth"],
-    ["spiked", "bloodied", "sharp-edged", "dangerous"],
+    ["clamorous", "bloody", "blackiron", "bustling", "scorching", "loud", "bloodstained"],
+    ["enraged", "bloodshot-eyed", "berserk", "oddly calm", "foaming at the mouth", "bloodied"],
+    ["spiked", "bloodied", "sharp-edged", "dangerous", "rusted", "sharp"],
     ["zweihanders", "spears", "warhorses", "chariots", "mercenary golems"],
-    {"market": 2})
+    {"market": 2, "brothel": 1})
 envy = District("envy",
-    ["dull", "tacky", "baroque"],
+    ["dull", "tacky", "baroque", "eclectic", "hidden", "heavily guarded"],
     ["hungry-eyed", "spiteful", "rag-clad", "miserly"],
     ["stolen", "chained", "locked"],
     [],
-    {"market": 9})
+    {"market": 9, "brothel": 6})
 pride = District("pride",
     ["towering", "gothic", "spired", "many-storied", "gilded", "obsidian"],
     ["regal", "elegant", "arrogant", "black-clad"],
     ["masterfully crafted", "beautiful beyond belief", "hypnotic", "fathomless"],
     ["coins", "construction tools", "cranes", "hammers", "deeds to far away mansions"],
-    {"market": 1})
+    {"market": 1, "brothel": 1, "babel": 1})
 
 districts_no_envy = [lust, gluttony, greed, sloth, wrath, pride]
 # populate random things in envy with stolen stuff from all districts
@@ -318,15 +318,30 @@ class Location:
 
 
 market_probabilities = {district.name:district.locations["market"] for district in districts}
-def location_maker(current_district, loc_type):
+def location_maker(current_district, loc_type): #ALL LOCATIONS ARE HERE
     if  loc_type == "market":
         return Location(
-            "You stumble into a {} market. The {} stalls sell {} and {} to the {} patrons.".format(
+            "You stumble into a {} market. The {} stalls sell {} and {} {} to the {} patrons.".format(
             random.choice(current_district.location_descriptors),
             random.choice(current_district.location_descriptors),
             random.choice(current_district.randomstuff),
+            random.choice(current_district.object_descriptors),
             random.choice(current_district.randomstuff),
             random.choice(current_district.character_descriptors)))
+    if  loc_type == "brothel":
+        return Location(
+            "You make your way into a {} brothel. The {} whores are here to satisfy your every desire, and sell {} {} to any who come".format(
+            random.choice(current_district.location_descriptors),
+            random.choice(current_district.character_descriptors),
+            random.choice(current_district.object_descriptors),
+            random.choice(current_district.randomstuff)))
+    if  loc_type == "babel":
+        return Location(
+            "Babel. The endless spire of Belzebub. The center of power in Malebolge. Its construction is never-ending, reaching ever higher towards the godless heavens above.".format(
+            random.choice(current_district.location_descriptors),
+            random.choice(current_district.character_descriptors),
+            random.choice(current_district.object_descriptors),
+            random.choice(current_district.randomstuff)))
 
 while True: 
     current_location = location_maker(
